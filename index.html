@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>JavaScript Calculator</title>
+  <style>
+    @font-face {
+      font-family: Digit;
+      src: url(./fonts/Digit.ttf);
+    }
+
+    body {
+      background-color: rgb(22, 22, 22);
+      font-family: Digit;
+    }
+
+    .calculator {
+      position: absolute;
+      width: 300px;
+      height: 450px;
+      background: rgba(49, 49, 49, 0.65);
+      border: 1px solid rgb(43, 36, 36);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.849), 0 6px 20px 0 rgba(0, 0, 0, 0.911);
+
+    }
+
+    .key {
+      position: relative;
+      margin-left: 1px;
+      width: 74px;
+      height: 70px;
+      border: 0;
+      float: left;
+      transition: 0.2s;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .key:hover {
+      box-shadow: 0 14px 14px -5px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.91) inset;
+    }
+
+    .key:after {
+      content: "";
+      background: #f1f1f1;
+      display: block;
+      position: absolute;
+      padding-top: 300%;
+      padding-left: 350%;
+      margin-left: -20px !important;
+      margin-top: -120%;
+      opacity: 0;
+      transition: all 0.4s
+    }
+
+    .key:active:after {
+      padding: 0;
+      margin: 0;
+      opacity: 1;
+      transition: 0s
+    }
+
+    .key.double {
+      width: 149px;
+      text-align: left;
+    }
+
+    .numeric {
+      background: #d3d3d3;
+    }
+
+    /* .numeric:hover {} */
+
+    .misc {
+      background: #a3a3a3;
+      font-size: 30px;
+    }
+
+    .function {
+      background-color: #ff8c00;
+      color: white;
+    }
+
+    .function:hover {
+      background-color: #ffa837;
+    }
+
+    .row {
+      padding-top: 1px;
+      clear: both;
+    }
+
+    button {
+      /* font-family: Digit; */
+      font-size: 3em;
+    }
+
+    .inputCalc {
+      text-align: right;
+      padding: 0 4px 0 4px;
+      text-shadow: 0 0 3px rgb(19, 80, 0), 0 0 5px rgb(255, 255, 255);
+      border-color: black;
+      font-family: Digit;
+      font-size: 4.5em;
+      width: 100%;
+      background-color: black;
+      color: rgb(82, 255, 2);
+    }
+  </style>
+</head>
+
+<body> s
+  <div class="calculator">
+    <input class="inputCalc" type="text">
+    <div class="row">
+      <button class="key misc">C</button>
+      <button class="key misc"><sup>+</sup>/<sub>−</sub></button>
+      <button class="key misc">%</button>
+      <button class="key function">÷</button>
+    </div>
+    <div class="row">
+      <button class="key numeric">7</button>
+      <button class="key numeric">8</button>
+      <button class="key numeric">9</button>
+      <button class="key function">×</button>
+    </div>
+    <div class="row">
+      <button class="key numeric">4</button>
+      <button class="key numeric">5</button>
+      <button class="key numeric">6</button>
+      <button class="key function">-</button>
+    </div>
+    <div class="row">
+      <button class="key numeric">1</button>
+      <button class="key numeric">2</button>
+      <button class="key numeric">3</button>
+      <button class="key function">+</button>
+    </div>
+    <div class="row">
+      <button class="key numeric double">0</button>
+      <button class="key numeric">.</button>
+      <button class="key function last">=</button>
+    </div>
+  </div>
+  <script>
+    'use strict'
+
+    function input() {
+
+      console.log()
+      return;
+    }
+  </script>
+</body>
+
+</html>
