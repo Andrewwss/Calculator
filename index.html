@@ -21,7 +21,7 @@
       background: rgba(49, 49, 49, 0.65);
       border: 1px solid rgb(43, 36, 36);
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.849), 0 6px 20px 0 rgba(0, 0, 0, 0.911);
-      overflow: hidden;
+
 
     }
 
@@ -37,36 +37,14 @@
       overflow: hidden;
     }
 
-    .key:hover {
-      box-shadow: 0 14px 14px -5px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 0, 0, 0.91) inset;
-    }
 
-    .key:after {
-      content: "";
-      background: #f1f1f1;
-      display: block;
-      position: absolute;
-      padding-top: 300%;
-      padding-left: 350%;
-      margin-left: -20px !important;
-      margin-top: -120%;
-      opacity: 0;
-      transition: all 0.4s
-    }
-
-    .key:active:after {
-      padding: 0;
-      margin: 0;
-      opacity: 1;
-      transition: 0s
-    }
 
     .key.double {
       width: 149px;
       text-align: left;
     }
 
-    .numeric {
+    .number {
       background: #d3d3d3;
     }
 
@@ -77,14 +55,12 @@
       font-size: 30px;
     }
 
-    .function {
+    .operation {
       background-color: #ff8c00;
       color: white;
     }
 
-    .function:hover {
-      background-color: #ffa837;
-    }
+
 
     .row {
       padding-top: 1px;
@@ -115,40 +91,140 @@
 
 <body>
   <div class="calculator">
-    <input class="inputCalc" type="text">
+    <input disabled value="0" class="inputCalc" id='inputCalc' type="text">
     <div class="row">
-      <button class="key misc">C</button>
+      <button class="clear_btn key misc" id="ce">CE</button>
+      <button class="clear_btn key misc" id="c">C</button>
       <button class="key misc"><sup>+</sup>/<sub>−</sub></button>
-      <button class="key misc">%</button>
-      <button class="key function">÷</button>
+      <button class="key operation">/</button>
     </div>
     <div class="row">
-      <button class="key numeric">7</button>
-      <button class="key numeric">8</button>
-      <button class="key numeric">9</button>
-      <button class="key function">×</button>
+      <button class="key numbers">7</button>
+      <button class="key numbers">8</button>
+      <button class="key numbers">9</button>
+      <button class="key operation">*</button>
     </div>
     <div class="row">
-      <button class="key numeric">4</button>
-      <button class="key numeric">5</button>
-      <button class="key numeric">6</button>
-      <button class="key function">-</button>
+      <button class="key numbers">4</button>
+      <button class="key numbers">5</button>
+      <button class="key numbers">6</button>
+      <button class="key operation">-</button>
     </div>
     <div class="row">
-      <button class="key numeric">1</button>
-      <button class="key numeric">2</button>
-      <button class="key numeric">3</button>
-      <button class="key function">+</button>
+      <button class="key numbers">1</button>
+      <button class="key numbers">2</button>
+      <button class="key numbers">3</button>
+      <button class="key operation">+</button>
     </div>
     <div class="row">
-      <button class="key numeric double">0</button>
-      <button class="key numeric">.</button>
-      <button class="key function last">=</button>
+      <button class="key numbers double">0</button>
+      <button class="key" id="decimal">.</button>
+      <button class="key operation last" id="result">=</button>
     </div>
   </div>
   <script>
-   
-  
+    var numbers = document.querySelectorAll('.numbers'),
+      operations = document.querySelectorAll('.operation'),
+      decimalBtn = document.getElementById('decimal'),
+      clearBtns = document.querySelectorAll('.clear_btn'),
+      ce = document.getElementById('ce'),
+      c = document.getElementById('c'),
+      resultBtn = document.getElementById('result'),
+      display = document.getElementById('inputCalc'),
+      MemoryCurrentNumber = 0,
+      MemoryNewNumber = false,
+      MemoryPendingOperation = '';
+
+    for (var i = 0; i < numbers.length; i++) {
+      var number = numbers[i];
+      number.addEventListener('click', function(e) {
+        numberPress(e.target.textContent);
+      });
+    };
+
+    for (var i = 0; i < operations.length; i++) {
+      var operationBtn = operations[i];
+      operationBtn.addEventListener('click', function(e) {
+        operation(e.target.textContent);
+      });
+    };
+
+    for (var i = 0; i < clearBtns.length; i++) {
+      var clearBtn = clearBtns[i];
+      clearBtn.addEventListener('click', function(e) {
+        clear(e.srcElement.id);
+      });
+    };
+
+    decimalBtn.addEventListener('click', decimal);
+
+    resultBtn.addEventListener('click', result);
+
+    function numberPress(number) {
+      if (MemoryNewNumber) {
+        display.value = number;
+        MemoryNewNumber = false;
+      } else {
+        if (display.value === '0') {
+          display.value = number;
+        } else {
+          display.value += number;
+        };
+      };
+    };
+
+    function operation(op) {
+      var localOperationMemory = display.value;
+
+      if (MemoryNewNumber && MemoryPendingOperation !== '=') {
+        display.value = MemoryCurrentNumber;
+      } else {
+        MemoryNewNumber = true;
+        if (MemoryPendingOperation === '+') {
+          MemoryCurrentNumber += parseFloat(localOperationMemory);
+        } else if (MemoryPendingOperation === '-') {
+          MemoryCurrentNumber -= parseFloat(localOperationMemory);
+        } else if (MemoryPendingOperation === '*') {
+          MemoryCurrentNumber *= parseFloat(localOperationMemory);
+        } else if (MemoryPendingOperation === '/') {
+          MemoryCurrentNumber /= parseFloat(localOperationMemory);
+        } else {
+          MemoryCurrentNumber = parseFloat(localOperationMemory);
+        };
+
+        display.value = MemoryCurrentNumber;
+        MemoryPendingOperation = op;
+      };
+    };
+
+    function clear(id) {
+      if (id === 'ce') {
+        display.value = '0';
+        MemoryNewNumber = true;
+      } else if (id === 'c') {
+        display.value = '0';
+        MemoryNewNumber = true;
+        MemoryCurrentNumber = 0;
+        MemoryPendingOperation = '';
+      }
+
+      console.log('click on ' + id + '!');
+    };
+
+    function decimal() {
+      var localDecimalMemory = display.value;
+
+      if (MemoryNewNumber) {
+        localDecimalMemory = '0.';
+        MemoryNewNumber = false;
+      } else {
+        if (localDecimalMemory.indexOf('.') === -1) {
+          localDecimalMemory += '.';
+        };
+      };
+
+      display.value = localDecimalMemory;
+    };
   </script>
 </body>
 
