@@ -4,87 +4,44 @@
 <head>
   <title>JavaScript Calculator</title>
   <style>
-    @font-face {
-      font-family: Digit;
-      src: url(./fonts/Digit.ttf);
-    }
-
     body {
-      background-color: rgb(22, 22, 22);
-      font-family: Digit;
+      background-color: rgb(20, 20, 20);
     }
-
     .calculator {
-      position: absolute;
-      width: 300px;
-      height: 450px;
-      background: rgba(49, 49, 49, 0.65);
-      border: 1px solid rgb(43, 36, 36);
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.849), 0 6px 20px 0 rgba(0, 0, 0, 0.911);
-
-
-    }
-
-    .key {
-      position: relative;
-      margin-left: 1px;
-      width: 74px;
-      height: 70px;
-      border: 0;
-      float: left;
-      transition: 0.2s;
-      cursor: pointer;
+      
+      width: 348px;
+      height: 501px;
+      background-color:#080f27;
       overflow: hidden;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.849), 0 6px 20px 0 rgba(0, 0, 0, 0.911);
     }
-
-
-
-    .key.double {
-      width: 149px;
-      text-align: left;
-    }
-
-    .number {
-      background: #d3d3d3;
-    }
-
-    /* .numeric:hover {} */
-
-    .misc {
-      background: #a3a3a3;
-      font-size: 30px;
-    }
-
-    .operation {
-      background-color: #ff8c00;
-      color: white;
-    }
-
-
-
-    .row {
-      padding-top: 1px;
-      clear: both;
-    }
-
-    button {
-      /* font-family: Digit; */
-      font-size: 3em;
-    }
-
     .inputCalc {
-      /* border-width: 1px; */
-      border: none;
+      height: 100px;
+      width: 344px;
+      color: white;
+      padding-right: 2px;
+      font-size: 3em;
       text-align: right;
-      padding: 0 4px 0 4px;
-      text-shadow: 0 0 3px rgb(19, 80, 0), 0 0 5px rgb(255, 255, 255);
-      border-color: black;
-      font-family: Digit;
-      font-size: 4em;
-      width: 296px;
-      height: 94px;
-      background-color: black;
-      color: rgb(82, 255, 2);
+      background-color: #424242;
+      border: 1px solid #0c0c0c9e;
+    }
+    .key {
+      color: white;
+      border: 1px solid #0c0c0c9e;
+      background-color: #424242;
+      font-size: 2em;
+      height: 79px;
+      width: 87px;
+      float: left;
+      outline: none;
+    
+    }
+    .key:active {
+      background-color: #d3d3d3;
+      color: #1f1f1f;
+    }
+    .last {
+      width: 174px;
     }
   </style>
 </head>
@@ -95,7 +52,7 @@
     <div class="row">
       <button class="clear_btn key misc" id="ce">CE</button>
       <button class="clear_btn key misc" id="c">C</button>
-      <button class="key misc"><sup>+</sup>/<sub>−</sub></button>
+      <button class="key misc">&plusmn;</button>
       <button class="key operation">/</button>
     </div>
     <div class="row">
